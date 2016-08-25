@@ -20,3 +20,4 @@ urlpatterns = [
     url(r'^', include('cabco_project.urls')),
     url(r'^admin/', admin.site.urls),
 ]
+
