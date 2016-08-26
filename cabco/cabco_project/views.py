@@ -9,9 +9,9 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 class Index(TemplateView):
-  """
-  This class is for our Index.
-  """
+    """
+    This class is for our Index.
+    """
     template_name = 'index.html'
 
 
