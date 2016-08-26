@@ -1,5 +1,5 @@
 var app = angular
-  .module('TicketBurst', ['interpolateProvider', 'ngRoute'])
+  .module('TicketBurst', ['ngRoute'])
   .config(function($interpolateProvider, $routeProvider) {
     $interpolateProvider.startSymbol('((');
     $interpolateProvider.endSymbol('))');
