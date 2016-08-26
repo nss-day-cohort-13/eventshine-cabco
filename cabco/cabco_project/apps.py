@@ -2,4 +2,7 @@ from django.apps import AppConfig
 
 
 class CabcoProjectConfig(AppConfig):
-    name = 'cabco_project'
+  """
+  This is our main class for our CabcoProject
+  """
+  name = 'cabco_project'
