@@ -17,7 +17,7 @@ class Event(models.Model):
     city = models.CharField(max_length=200)
     begin_date_time = models.DateTimeField(auto_now=False, auto_now_add=False)
     end_date_time = models.DateTimeField(auto_now=False, auto_now_add=False)
-    attendee_limit = models.IntegerField(default=0)
+    atendee_limit = models.IntegerField(default=0)
     # number_of_tickets = models.IntegerField(default=0)
     event_price = models.IntegerField(default=0)
 
