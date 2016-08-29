@@ -1,9 +1,10 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView
 from .models import Event, Venue
 from django.template import RequestContext
+import json
 
 from django.contrib.auth.models import User
 
@@ -22,9 +23,8 @@ def index(request):
 
 
 # CREATE USER #
-@csrf_exempt
+# @csrf_exempt
 def create_user_object(request):
-    print(request)
     '''
         Function to catch registration of user from login.html.
         Upon form submition, the values of the fields are passed in via the arg 'request'
@@ -37,11 +37,14 @@ def create_user_object(request):
             'request' - the values passed in as string via the form of login.html
     '''
 
-    username = request.POST['username']
-    password = request.POST['password']
-    email = request.POST['email']
-    first_name = request.POST['first_name']
-    last_name = request.POST['last_name']
+    # print('request', request.POST)
+    obj = json.loads(request.body.decode())
+    print('obj', obj)
+    username =  obj['username']
+    password = obj['password']
+    email = obj['email']
+    first_name = obj['first_name']
+    last_name = obj['last_name']
 
     user = User.objects.create_user(
                                     username=username,
@@ -52,7 +55,7 @@ def create_user_object(request):
                                     )
 
     user.save()
-
+    return HttpResponseRedirect('/')
 # user creation view
 
 # user login view
