@@ -1,25 +1,29 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from .models import Event, Venue
+from django.template import RequestContext
 
 from django.contrib.auth.models import User
 
 # from django.contrib.auth import authenticate, login
 
 # Create your views here.
-class Index(TemplateView):
+def index(request):
     """
     This class is for our Index.
     """
     template_name = 'index.html'
+    return render(request, template_name, {})
 
 
 # VIEWS CATCH 'POST'  <-----LOOK AT THAT, WOW.
 
 
 # CREATE USER #
-def create_user(request):
+@csrf_exempt
+def create_user_object(request):
     print(request)
     '''
         Function to catch registration of user from login.html.
@@ -46,6 +50,7 @@ def create_user(request):
                                     first_name=first_name,
                                     last_name=last_name,
                                     )
+
     user.save()
 
 # user creation view
@@ -55,6 +60,3 @@ def create_user(request):
 # create event view
 
 # create venue view
-
-
-
