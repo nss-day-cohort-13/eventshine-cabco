@@ -8,5 +8,10 @@ angular.module('TicketBurst')
       controller: 'RegisterCtrl',
       controllerAs: 'register',
       templateUrl: 'static/templates/register.html'
+    }),
+  $routeProvider.when('/event', {
+      controller: 'EventCtrl',
+      controllerAs: 'event',
+      templateUrl: 'static/templates/event.html'
     })
 }]);
