@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.generic import TemplateView
 from .models import Event, Venue
 from django.template import RequestContext
@@ -8,7 +8,7 @@ import json
 
 from django.contrib.auth.models import User
 
-# from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 
 # Create your views here.
 def index(request):
@@ -34,18 +34,23 @@ def create_user_object(request):
         below and then we save it to our database.
 
         Args:
-            'request' - the values passed in as string via the form of login.html
+            'request' - the values passed in as string via the $http call from register-ctrl of login.html
     '''
 
-    # print('request', request.POST)
-    obj = json.loads(request.body.decode())
-    print('obj', obj)
-    username =  obj['username']
-    password = obj['password']
-    email = obj['email']
-    first_name = obj['first_name']
-    last_name = obj['last_name']
+    # data = imported json and using the .loads() function, passed in the
+    # argument - the decoded body of the request to be posted which is
+    # a dictionary of the info typed into the form. Data is the same as data
+    # in the register-ctrl $http call.
+    data = json.loads(request.body.decode())
 
+    # ASSIGNS CORRESPONDING OBJ VALUE TO A VARIABLE
+    username =  data['username']
+    password = data['password']
+    email = data['email']
+    first_name = data['first_name']
+    last_name = data['last_name']
+
+    # CALLS CREATE USER FUNCTION ON USER.OBJECTS
     user = User.objects.create_user(
                                     username=username,
                                     password=password,
@@ -54,12 +59,26 @@ def create_user_object(request):
                                     last_name=last_name,
                                     )
 
+    # SAVES USER DATA THAT WAS JUST POSTED
     user.save()
-    return HttpResponseRedirect('/')
-# user creation view
 
-# user login view
+    currentUser = authenticate(username=username, password=password)
 
-# create event view
+    if currentUser is not None:
+        return HttpResponseRedirect('/')
+    else:
+        return Http404
 
-# create venue view
+
+def login_user(request):
+    data = json.loads(request.body.decode())
+
+    username = data['username']
+    password = data['password']
+
+    user = authenticate(username=username, password=password)
+
+    if user is not None:
+        return HttpResponseRedirect('/')
+    else:
+        return Http404

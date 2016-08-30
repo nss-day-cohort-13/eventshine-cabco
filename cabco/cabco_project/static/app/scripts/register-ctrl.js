@@ -6,7 +6,8 @@ app.controller('RegisterCtrl', function($http, $location) {
 
   register.registerUser = function() {
     // Construct $http POST verb XHR
-    // console.log("register", register);
+    // IN ORDER TO HAVE A POST TO DJANGO MUST USE ORIGINAL HTTP CALL AS BELOW
+    // CANNOT USE SHORTCUT METHODS, DOES NOT WORK CORRECTLY
     $http({
       url: "/register/",
       method: "POST",
@@ -18,8 +19,10 @@ app.controller('RegisterCtrl', function($http, $location) {
         "first_name": register.firstName,
         "last_name": register.lastName
       }
-    }).then(() => {
-      $location.path('/login')
+    }).success((res) => {
+      $location.path('/homepage');
+    }).error(() => {
+      $location.path('/failed_user');
     })
   }
 
