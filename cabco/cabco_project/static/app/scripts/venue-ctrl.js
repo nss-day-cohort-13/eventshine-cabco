@@ -1,1 +1,1 @@
-app.controller('VenuesCtrl', function($http, $location) {}
+app.controller('VenuesCtrl', function($http, $location) {})

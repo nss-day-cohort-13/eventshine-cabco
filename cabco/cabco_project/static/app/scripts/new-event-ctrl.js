@@ -1,1 +1,1 @@
-app.controller('NewEventCtrl', function($http, $location) {}
+app.controller('NewEventCtrl', function($http, $location) {})
