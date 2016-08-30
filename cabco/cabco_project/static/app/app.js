@@ -1,1 +1,1 @@
-var app = angular.module('TicketBurst', ['ngRoute', 'ngCookies'])
+var app = angular.module('TicketBurst', ['ngRoute'])

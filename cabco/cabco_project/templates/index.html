@@ -10,13 +10,20 @@
       <div ng-view>
       </div>
     </div>
-    <script src='{% static "bower_components/jquery/dist/jquery.min.js" %}'></script>
+
+    <!-- FRAMEWORK SCRIPTS -->
     <script src='{% static "bower_components/angular/angular.min.js" %}'></script>
     <script src='{% static "bower_components/angular-route/angular-route.min.js" %}'></script>
-    <script src='{% static "bower_components/angular-cookies/angular-cookies.min.js" %}'></script>
+
+
+    <!--  USER SCRIPTS-->
     <script src='{% static "app/app.js" %}'></script>
     <script src='{% static "app/config.js" %}'></script>
     <script src='{% static "app/scripts/login-ctrl.js" %}'></script>
     <script src='{% static "app/scripts/register-ctrl.js" %}'></script>
+    <script src='{% static "app/scripts/event-ctrl.js" %}'></script>
+    <script src='{% static "app/scripts/venue-ctrl.js" %}'></script>
+    <script src='{% static "app/scripts/new-event-ctrl.js" %}'></script>
+    <script src='{% static "app/scripts/new-venue-ctrl.js" %}'></script>
   </body>
 </html>
