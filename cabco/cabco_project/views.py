@@ -122,6 +122,7 @@ def create_new_venue(request):
         return Http404
 
 
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
@@ -149,11 +150,4 @@ def show_all_venues(request):
     venues = Venue.objects.all()
     data = serializers.serialize('json', venues)
     return HttpResponse(data, content_type='application/json')
-
-
-
-
-
-
-
 
