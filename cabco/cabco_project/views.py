@@ -108,16 +108,13 @@ def create_new_venue(request):
     seating_capacity = data['seating_capacity']
 
     # NOT SURE BELOW - CALLS CREATE USER FUNCTION ON VENUE.OBJECTS
-    user = User.objects.create_user(
-                                    venue_name=venue_name,
-                                    seating_capacity=seating_capacity,
-                                    )
+    venue = Venue.objects.create(venue_name=venue_name, seating_capacity=seating_capacity)
 
     # SAVES NEW VENUE DATA THAT WAS JUST POSTED
     venue.save()
 
 
-    if currentUser is not None:
+    if venue is not None:
         return HttpResponseRedirect('/')
     else:
         return Http404
