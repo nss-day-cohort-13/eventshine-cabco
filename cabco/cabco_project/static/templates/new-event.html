@@ -36,6 +36,6 @@
     </div>
     <div>
       <label>Event Venue</label>
-      <select ng-model='newEvent.eventVenue'><option ng-repeat='venue in newEvent.allVenues'>((venue.fields.venue_name))</option></select>
+      <select ng-model='newEvent.eventVenue'><option value='((venue.pk))' ng-repeat='venue in newEvent.allVenues'>((venue.fields.venue_name))</option></select>
     </div>
     <button ng-click='newEvent.createEvent()'>Create Event</button>
