@@ -2,7 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.generic import TemplateView
-from .models import Event, Venue
+from .models import Event, Venue, Ticket
 from django.template import RequestContext
 import json
 from django.core import serializers
@@ -203,4 +203,14 @@ def show_all_venues(request):
     '''
     venues = Venue.objects.all()
     data = serializers.serialize('json', venues)
+    return HttpResponse(data, content_type='application/json')
+
+def show_all_tickets(request):
+    '''
+        Gives all tickets to angular to be rendered
+        Args:
+            request - is the database table of tickets
+    '''
+    tickets = Ticket.objects.all()
+    data = serializers.serialize('json', tickets)
     return HttpResponse(data, content_type='application/json')

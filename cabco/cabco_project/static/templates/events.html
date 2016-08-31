@@ -8,10 +8,11 @@
 <div ng-repeat='event in events.allEvents'>
   <li>
     ((event.fields.event_name)) |
-    When: ((event.fields.begin_date_time)) |
+    Begins: ((event.fields.begin_date_time)) |
+    Ends: ((event.fields.end_date_time)) |
     Desc: ((event.fields.description)) |
     City: ((event.fields.city)) |
-    $: ((event.fields.event_price))
+    Cost: $((event.fields.event_price))
     <button ng-click='events.buyTicket(event.pk)'>Buy Ticket</button>
   </li>
 </div>

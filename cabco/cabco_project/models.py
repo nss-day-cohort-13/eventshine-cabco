@@ -40,4 +40,6 @@ class Event(models.Model):
 
 
 
-# class Ticket(models.Model):
+class Ticket(models.Model):
+    user = models.ForeignKey(User)
+    event = models.ForeignKey(Event)
