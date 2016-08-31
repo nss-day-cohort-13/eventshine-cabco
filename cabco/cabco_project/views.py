@@ -113,6 +113,9 @@ def create_event_object(request):
     event_price = data['event_price']
     event_creator = request.user
     event_venue = data['event_venue']
+
+    event_venue = Venue.objects.get(pk=event_venue)
+
     # CALLS CREATE USER FUNCTION ON EVENT.OBJECTS
     event = Event.objects.create(
                                     event_name=event_name,

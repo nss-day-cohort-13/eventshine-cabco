@@ -16,7 +16,7 @@ class Venue(models.Model):
     """
     venue_name = models.CharField(max_length=200)
     seating_capacity = models.IntegerField(default=0)
-    
+
 
 class Event(models.Model):
     """
@@ -37,3 +37,7 @@ class Event(models.Model):
     event_price = models.IntegerField(default=0)
     event_creator = models.ForeignKey(User, on_delete=models.CASCADE)
     event_venue = models.ForeignKey(Venue)
+
+
+
+# class Ticket(models.Model):

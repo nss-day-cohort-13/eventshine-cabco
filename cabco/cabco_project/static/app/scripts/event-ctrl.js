@@ -21,4 +21,5 @@ app.controller('EventsCtrl', function($http, $location) {
           events.allEvents = res.data
   })
 
+
 }); // end

@@ -9,8 +9,9 @@
   <li>
     ((event.fields.event_name)) |
     When: ((event.fields.begin_date_time)) |
-    Des: ((event.fields.description)) |
+    Desc: ((event.fields.description)) |
     City: ((event.fields.city)) |
     $: ((event.fields.event_price))
+    <button ng-click='events.buyTicket(event.pk)'>Buy Ticket</button>
   </li>
 </div>
