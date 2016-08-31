@@ -27,7 +27,7 @@ def index(request):
 def create_user_object(request):
     '''
         Function to catch registration of user from login.html.
-        Upon form submition, the values of the fields are passed in via the arg 'request'
+        Upon form submission, the values of the fields are passed in via the arg 'request'
         and then set to variables below.
 
         Following we create a user by setting the variables passed in the the create_user function
@@ -82,3 +82,44 @@ def login_user(request):
         return HttpResponseRedirect('/')
     else:
         return Http404
+
+# CREATE Event #
+# @csrf_exempt
+def create_event_object(request):
+    '''
+        Function to create event creation.
+        Upon form submission, the values of the fields are passed in via the arg 'request'
+        and then set to variables below.
+
+        Following we create an event by setting the variables passed in the the create_event function
+        below and then we save it to our database.
+
+    '''
+
+    # data = imported json and using the .loads() function, passed in the
+    # argument - the decoded body of the request to be posted which is
+    # a dictionary of the info typed into the form. Data is the same as data
+    # in the register-ctrl $http call.
+    data = json.loads(request.body.decode())
+
+    # ASSIGNS CORRESPONDING OBJ VALUE TO A VARIABLE
+    event_name =  data['event_name']
+    event_date = data['event_date']
+    event_price = data['event_price']
+    event_attendee_capacity = data['event_attendee_capacity']
+    event_creator = data['event_creator']
+
+    # CALLS CREATE USER FUNCTION ON EVENT.OBJECTS
+    event = Event.objects.create_event(
+                                    event_name=event_name,
+                                    event_date=event_date,
+                                    event_price=event_price,
+                                    event_attendee_capacity=event_attendee_capacity,
+                                    event_creator=event_creator,
+                                    )
+
+    # SAVES EVENT DATA THAT WAS JUST POSTED
+    # not sure if we need below line
+    event.event()
+
+
