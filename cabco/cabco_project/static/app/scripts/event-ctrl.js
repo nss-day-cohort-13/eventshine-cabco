@@ -17,7 +17,7 @@ app.controller('EventsCtrl', function($http, $location) {
 
   $http.get('http://localhost:8000/events')
   .then((res) => {
-          console.log("All Events: ", res )
+          console.log("All Events: ", res.data)
           events.allEvents = res.data
   })
 

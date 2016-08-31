@@ -6,6 +6,12 @@
 <button ng-click='events.createVenue()'>Create Venue</button>
 
 <div ng-repeat='event in events.allEvents'>
-  <li>((event))</li>
+  <li>
+    ((event.fields.event_name)) |
+    When: ((event.fields.begin_date_time)) |
+    Des: ((event.fields.description)) |
+    City: ((event.fields.city)) |
+    $: ((event.fields.event_price))
+  </li>
 </div>
 
