@@ -122,6 +122,8 @@ def create_event_object(request):
                                     end_date_time=end_date_time,
                                     atendee_limit=atendee_limit,
                                     event_price=event_price,
+                                    event_creator=event_creator,
+                                    event_venue = event_venue
                                     )
 
     # SAVES NEW VENUE DATA THAT WAS JUST POSTED

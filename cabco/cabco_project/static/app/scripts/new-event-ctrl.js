@@ -28,4 +28,10 @@ app.controller('NewEventCtrl', function($http, $location) {
     })
   }
 
+  $http.get('/venues/')
+  .then((res) => {
+          console.log("All Venues: ", res.data);
+          newEvent.allVenues = res.data
+  })
+
 });
