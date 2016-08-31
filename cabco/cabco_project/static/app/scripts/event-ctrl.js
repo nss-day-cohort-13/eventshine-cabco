@@ -4,18 +4,18 @@ app.controller('EventsCtrl', function($http, $location) {
   events.app_name = 'CabCo'
 
   events.logout = () => {
-    window.location = '/logout'
+    window.location = '/logout/'
   }
 
   events.createEvent =  () => {
-    $location.path('/new-event');
+    $location.path('/new-event/');
   }
 
   events.createVenue =  () => {
-    $location.path('/new-venue');
+    $location.path('/new-venue/');
   }
 
-  $http.get('http://localhost:8000/events')
+  $http.get('/events/')
   .then((res) => {
           console.log("All Events: ", res.data)
           events.allEvents = res.data
