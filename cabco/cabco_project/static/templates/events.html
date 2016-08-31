@@ -1,1 +1,11 @@
-<h1>HOMEPAGE</h1>
+<h1>((events.app_name))</h1>
+
+<button ng-click='events.logout()'>Logout</button>
+
+<button ng-click='events.createEvent()'>Create Event</button>
+<button ng-click='events.createVenue()'>Create Venue</button>
+
+<div ng-repeat='event in events.allEvents'>
+  <li>((event))</li>
+</div>
+
