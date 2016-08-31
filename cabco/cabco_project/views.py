@@ -5,6 +5,8 @@ from django.views.generic import TemplateView
 from .models import Event, Venue
 from django.template import RequestContext
 import json
+from django.core import serializers
+from django.contrib.auth import logout
 
 from django.contrib.auth.models import User
 
@@ -118,3 +120,40 @@ def create_new_venue(request):
         return HttpResponseRedirect('/')
     else:
         return Http404
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+
+
+def show_all_events(request):
+    '''
+        Gives all events to angular to be rendered
+
+        Args:
+            request - is the database table of events
+    '''
+    events = Event.objects.all()
+    data = serializers.serialize('json', events)
+    return HttpResponse(data, content_type='application/json')
+
+
+def show_all_venues(request):
+    '''
+        Gives all venues to angular to be rendered
+        Args:
+          request - is the database table of venues
+    '''
+    venues = Venue.objects.all()
+    data = serializers.serialize('json', venues)
+    return HttpResponse(data, content_type='application/json')
+
+
+
+
+
+
+
+
