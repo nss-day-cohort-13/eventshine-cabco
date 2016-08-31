@@ -107,15 +107,13 @@ def create_event_object(request):
     event_date = data['event_date']
     event_price = data['event_price']
     event_attendee_capacity = data['event_attendee_capacity']
-    event_creator = data['event_creator']
 
     # CALLS CREATE USER FUNCTION ON EVENT.OBJECTS
-    event = Event.objects.create_event(
+    event = Event.objects.create(
                                     event_name=event_name,
                                     event_date=event_date,
                                     event_price=event_price,
                                     event_attendee_capacity=event_attendee_capacity,
-                                    event_creator=event_creator,
                                     )
 
     # SAVES EVENT DATA THAT WAS JUST POSTED
