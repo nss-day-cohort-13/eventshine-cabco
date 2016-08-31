@@ -82,3 +82,39 @@ def login_user(request):
         return HttpResponseRedirect('/')
     else:
         return Http404
+
+
+def create_new_venue(request):
+    '''
+        Function to create a new venue.
+        Upon form submition, the values of the fields are passed in via the arg 'request'
+        and then set to variables below.
+
+        Following we create a venue by setting the variables passed in the the create_new_venue function
+        below and then we save it to our database.
+
+        Args:
+            'request' - the values passed in as string via the $http call from venue-ctrl
+    '''
+
+    # data = imported json and using the .loads() function, passed in the
+    # argument - the decoded body of the request to be posted which is
+    # a dictionary of the info typed into the form. Data is the same as data
+    # in the register-ctrl $http call.
+    data = json.loads(request.body.decode())
+
+    # ASSIGNS CORRESPONDING OBJ VALUE TO A VARIABLE
+    venue_name =  data['venue_name']
+    seating_capacity = data['seating_capacity']
+
+    # NOT SURE BELOW - CALLS CREATE USER FUNCTION ON VENUE.OBJECTS
+    venue = Venue.objects.create(venue_name=venue_name, seating_capacity=seating_capacity)
+
+    # SAVES NEW VENUE DATA THAT WAS JUST POSTED
+    venue.save()
+
+
+    if venue is not None:
+        return HttpResponseRedirect('/')
+    else:
+        return Http404

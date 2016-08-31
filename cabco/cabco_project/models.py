@@ -30,6 +30,5 @@ class Venue(models.Model):
     Character Field limit is 200.
 
     """
-
     venue_name = models.CharField(max_length=200)
     seating_capacity = models.IntegerField(default=0)
