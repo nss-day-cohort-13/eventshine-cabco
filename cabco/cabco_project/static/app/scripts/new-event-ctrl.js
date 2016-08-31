@@ -12,13 +12,17 @@ app.controller('NewEventCtrl', function($http, $location) {
       method: "POST",
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       data: {
-        "event_name": newEvent.eventName,
-        "event_date": newEvent.eventDate,
-        "event_price": newEvent.eventPrice,
-        "event_attendee_capacity": newEvent.eventAttendeeCapacity
+        'event_name': newEvent.eventName,
+        'description': newEvent.description,
+        'city': newEvent.city,
+        'begin_date_time': newEvent.beginDateTime,
+        'end_date_time': newEvent.endDateTime,
+        'atendee_limit': newEvent.atendeeLimit,
+        'event_price': newEvent.eventPrice,
+        'event_venue': newEvent.eventVenue
       }
     }).success((res) => {
-      $location.path('/homepage'); //change later
+      $location.path('/events'); //change later
     }).error(() => {
       $location.path('/failed_user'); // we will change this later it just needs to go somewhere for now
     })

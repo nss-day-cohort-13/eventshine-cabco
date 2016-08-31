@@ -95,19 +95,57 @@ def create_event_object(request):
 
         Following we create an event by setting the variables passed in the the create_event function
         below and then we save it to our database.
+    '''
+    # data = imported json and using the .loads() function, passed in the
+    # argument - the decoded body of the request to be posted which is
+    # a dictionary of the info typed into the form. Data is the same as data
+    # in the register-ctrl $http call.
+    data = json.loads(request.body.decode())
+
+    # ASSIGNS CORRESPONDING OBJ VALUE TO A VARIABLE
+    event_name =  data['event_name']
+    description = data['description']
+    city = data['city']
+    # event_date = data['event_date']
+    begin_date_time = data['begin_date_time']
+    end_date_time = data['end_date_time']
+    atendee_limit = data['atendee_limit']
+    event_price = data['event_price']
+    event_creator = request.user
+    event_venue = data['event_venue']
+    # CALLS CREATE USER FUNCTION ON EVENT.OBJECTS
+    event = Event.objects.create(
+                                    event_name=event_name,
+                                    description=description,
+                                    city=city,
+                                    begin_date_time=begin_date_time,
+                                    end_date_time=end_date_time,
+                                    atendee_limit=atendee_limit,
+                                    event_price=event_price,
+                                    )
+
+    # SAVES NEW VENUE DATA THAT WAS JUST POSTED
+    event.save()
+
+
+    if event is not None:
+        return HttpResponseRedirect('/')
+    else:
+        return Http404
+
 
 
 def create_new_venue(request):
     '''
-        Function to create a new venue.
-        Upon form submition, the values of the fields are passed in via the arg 'request'
-        and then set to variables below.
+    Function to create a new venue.
+    Upon form submition, the values of the fields are passed in via the arg 'request'
+    and then set to variables below.
 
-        Following we create a venue by setting the variables passed in the the create_new_venue function
-        below and then we save it to our database.
+    Following we create a venue by setting the variables passed in the the create_new_venue function
+    below and then we save it to our database.
 
-        Args:
-            'request' - the values passed in as string via the $http call from venue-ctrl
+    Args:
+        'request' - the values passed in as string via the $http call from venue-ctrl
     '''
 
     # data = imported json and using the .loads() function, passed in the
@@ -117,24 +155,6 @@ def create_new_venue(request):
     data = json.loads(request.body.decode())
 
     # ASSIGNS CORRESPONDING OBJ VALUE TO A VARIABLE
-    event_name =  data['event_name']
-    event_date = data['event_date']
-    event_price = data['event_price']
-    event_attendee_capacity = data['event_attendee_capacity']
-
-    # CALLS CREATE USER FUNCTION ON EVENT.OBJECTS
-    event = Event.objects.create(
-                                    event_name=event_name,
-                                    event_date=event_date,
-                                    event_price=event_price,
-                                    event_attendee_capacity=event_attendee_capacity,
-                                    )
-
-    # SAVES EVENT DATA THAT WAS JUST POSTED
-    # not sure if we need below line
-    event.event()
-
-
     venue_name =  data['venue_name']
     seating_capacity = data['seating_capacity']
 
@@ -179,4 +199,3 @@ def show_all_venues(request):
     venues = Venue.objects.all()
     data = serializers.serialize('json', venues)
     return HttpResponse(data, content_type='application/json')
-

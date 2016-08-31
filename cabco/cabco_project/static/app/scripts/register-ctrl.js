@@ -20,7 +20,7 @@ app.controller('RegisterCtrl', function($http, $location) {
         "last_name": register.lastName
       }
     }).success((res) => {
-      $location.path('/homepage');
+      $location.path('/events');
     }).error(() => {
       $location.path('/failed_user');
     })
