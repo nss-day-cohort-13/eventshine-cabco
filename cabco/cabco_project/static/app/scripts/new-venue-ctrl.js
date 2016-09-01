@@ -17,7 +17,7 @@ app.controller('NewVenueCtrl', function($http, $location) {
         "seating_capacity": newVenue.seatingCapacity
       }
     }).success((res) => {
-      $location.path('/venues');
+      $location.path('/events');
     }).error(() => {
       $location.path('/failed_user');
     })

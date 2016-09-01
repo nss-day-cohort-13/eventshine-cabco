@@ -1,0 +1,18 @@
+<h1>((venues.app_name))</h1>
+
+<h2>Venues</h2>
+
+<button ng-click='venues.logout()'>Logout</button>
+
+<button ng-click='venues.events()'>Go To Events</button>
+<button ng-click='venues.createEvent()'>Create Event</button>
+<button ng-click='venues.createVenue()'>Create Venue</button>
+
+<div ng-repeat='venue in venues.allVenues'>
+  <ul>
+    <li>
+  Name: ((venue.fields.venue_name)) |
+  Capacity: ((venue.fields.seating_capacity))
+    </li>
+  </ul>
+</div>
