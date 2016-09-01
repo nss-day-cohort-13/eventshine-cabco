@@ -1,0 +1,28 @@
+<h1>CABCO</h1>
+<h2>Create Event</h1>
+    <div>
+        <label>Event Name</label>
+        <input type="text" name="event_name" ng-model='newEvent.event_name'>
+    </div>
+    <div>
+      <label>Event Date</label>
+      <!-- does type 'date' work? -->
+      <input type="date" name="event_name" ng-model='newEvent.event_name'>
+    </div>
+
+    <div>
+      <label>Event Price</label>
+      <!-- does type 'integer' work? -->
+      <input type="integer" name="event_price" ng-model='newEvent.event_price'>
+    </div>
+
+    <div>
+      <label>Event Attendee Capacity</label>
+      <!-- does type 'integer' work? -->
+      <input type="integer" name="event_attendee_capacity" ng-model='newEvent.event_attendee_capacity'>
+    </div>
+
+
+    <button ng-click='newEvent.createEvent()'>Create Event</button>
+
+
