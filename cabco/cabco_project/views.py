@@ -6,7 +6,7 @@ from .models import Event, Venue, Ticket
 from django.template import RequestContext
 import json
 from django.core import serializers
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 
 from django.contrib.auth.models import User
 
@@ -67,6 +67,7 @@ def create_user_object(request):
     currentUser = authenticate(username=username, password=password)
 
     if currentUser is not None:
+        login(request, currentUser)
         return HttpResponseRedirect('/')
     else:
         return Http404
@@ -79,8 +80,11 @@ def login_user(request):
     password = data['password']
 
     user = authenticate(username=username, password=password)
+    # login(user)
 
     if user is not None:
+        login(request, user)
+        # print('login user', request.user)
         return HttpResponseRedirect('/')
     else:
         return Http404
@@ -102,6 +106,8 @@ def create_event_object(request):
     # in the register-ctrl $http call.
     data = json.loads(request.body.decode())
 
+    print('event_creator', request.user)
+
     # ASSIGNS CORRESPONDING OBJ VALUE TO A VARIABLE
     event_name =  data['event_name']
     description = data['description']
@@ -115,6 +121,7 @@ def create_event_object(request):
     event_venue = data['event_venue']
 
     event_venue = Venue.objects.get(pk=event_venue)
+
 
     # CALLS CREATE USER FUNCTION ON EVENT.OBJECTS
     event = Event.objects.create(
@@ -175,10 +182,31 @@ def create_new_venue(request):
     else:
         return Http404
 
+def create_new_ticket(request):
+
+    data = json.loads(request.body.decode())
+
+    user = request.user
+    event = data['event_pk']
+
+    event = Event.objects.get(pk=event)
+
+    print('user', user)
+    print('event', event)
+
+    ticket = Ticket.objects.create(user=user, event=event)
+
+    ticket.save()
+
+    if ticket is not None:
+        return HttpResponseRedirect('/')
+    else:
+        return Http404
 
 
 def logout_view(request):
     logout(request)
+    print('user', request.user)
     return HttpResponseRedirect('/')
 
 
@@ -205,12 +233,20 @@ def show_all_venues(request):
     data = serializers.serialize('json', venues)
     return HttpResponse(data, content_type='application/json')
 
-def show_all_tickets(request):
-    '''
-        Gives all tickets to angular to be rendered
-        Args:
-            request - is the database table of tickets
-    '''
-    tickets = Ticket.objects.all()
-    data = serializers.serialize('json', tickets)
-    return HttpResponse(data, content_type='application/json')
+# def show_all_tickets(request):
+#     '''
+#         Gives all tickets to angular to be rendered
+#         Args:
+#             request - is the database table of tickets
+#     '''
+#     tickets = Ticket.objects.all()
+#     data = serializers.serialize('json', tickets)
+#     return HttpResponse(data, content_type='application/json')
+
+def get_ticket_count(request):
+    data = json.loads(request.body.decode())
+    event=data['event_pk']
+
+    eventTickets = Ticket.objects.filter(event=event).count()
+    # eventTicketData = serializers.serialize('json', eventTickets)
+    return HttpResponse(eventTickets, content_type='application/json')
